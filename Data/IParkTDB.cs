@@ -46,5 +46,5 @@ namespace IParkT_Authentication.Data
             //  new Reservation { ReservationId = 1, Date = DateTime.MinValue, CheckIn = DateTime.MinValue, CheckOut = DateTime.MinValue }
             //   );
         }
-        }
-   }
+    }
+}

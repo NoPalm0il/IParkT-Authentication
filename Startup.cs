@@ -35,6 +35,11 @@ namespace IParkT_Authentication
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            //TODO: Update-database on NuGet, and work on this
+            services.AddDbContext<IParkTDB>(options => options
+                                                       .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                                                       .UseLazyLoadingProxies()  // ativamos a opção do Lazy Loading
+                                                       );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
