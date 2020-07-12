@@ -4,14 +4,16 @@ using IParkT_Authentication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IParkT_Authentication.Migrations
 {
     [DbContext(typeof(IParkTDB))]
-    partial class IParkTDBModelSnapshot : ModelSnapshot
+    [Migration("20200712174859_Changed user to utilizador")]
+    partial class Changedusertoutilizador
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,13 +38,13 @@ namespace IParkT_Authentication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Utilizadorusername")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.Property<int>("username")
                         .HasColumnType("int");
 
                     b.HasKey("LicensePlate");

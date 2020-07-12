@@ -27,19 +27,22 @@ namespace IParkT_Authentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<IParkTDB>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             //adicionar a base de dados
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             //TODO: Update-database on NuGet, and work on this
-            services.AddDbContext<IParkTDB>(options => options
-                                                       .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                                                       .UseLazyLoadingProxies()  // ativamos a opção do Lazy Loading
-                                                       );
+            services.AddDbContext<IParkTDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Context")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

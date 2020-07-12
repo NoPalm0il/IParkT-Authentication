@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IParkT_Authentication.Models
 {
-    public class User
+    public class Utilizador
     {
-        public User()
+        public Utilizador()
         {
             Cars = new HashSet<Car>();
         }

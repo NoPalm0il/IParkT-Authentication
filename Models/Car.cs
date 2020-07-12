@@ -25,8 +25,8 @@ namespace IParkT_Authentication.Models
         [Required]
         public int Year { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+        [ForeignKey("Utilizador")]
+        public int username { get; set; }
 
         public virtual ICollection<Reservation> Reservations { get; set; }
     }
