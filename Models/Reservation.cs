@@ -11,12 +11,11 @@ namespace IParkT_Authentication.Models
     {
         [Key]
         public int ReservationId { get; set; }
-        public DateTime Date { get; set; }//remover isto
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
 
         [ForeignKey("Car")]
-        public int CarId { get; set; }
+        public string LicensePlate { get; set; }
         [ForeignKey("Park")]
         public int ParkId { get; set; }
     }

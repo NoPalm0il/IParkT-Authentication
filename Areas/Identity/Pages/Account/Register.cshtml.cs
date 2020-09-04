@@ -64,11 +64,6 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(6, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [Display(Name = "Matricula")]
-            public string Matricula { get; set; }
-
-            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -78,6 +73,27 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            [Required]
+            [StringLength(6, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "LicensePlate")]
+            public string LicensePlate { get; set; }
+
+            [Required]
+            [Display(Name = "Color")]
+            public string Color { get; set; }
+
+            [Required]
+            [Display(Name = "Manufacturer")]
+            public string Manufacturer { get; set; }
+
+            [Required]
+            [Display(Name = "Model")]
+            public string Model { get; set; }
+            [Required]
+            [Display(Name = "Year")]
+            public string Year { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -92,21 +108,21 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var utilizador = new Utilizador
+                var newutilizador = new Utilizador
                 {
                     username = Input.Name,
                     email = Input.Email
                 };
 
-                try
+                var newcar = new Car
                 {
-                    var result_uti = _context.Add(utilizador);
-                    await _context.SaveChangesAsync();
-                } catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-
+                    LicensePlate = Input.LicensePlate,
+                    Color = Input.Color,
+                    Manufacturer = Input.Manufacturer,
+                    Model = Input.Model,
+                    Year = Int32.Parse(Input.Year),
+                    username = Input.Name
+                };
 
                 var user = new IdentityUser { UserName = Input.Name, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -125,6 +141,19 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    try
+                    {
+                        var result_uti = _context.Add(newutilizador);
+                        var result_car = _context.Add(newcar);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+
+                        return Page();
+                    }
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

@@ -4,14 +4,16 @@ using IParkT_Authentication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IParkT_Authentication.Migrations
 {
     [DbContext(typeof(IParkTDB))]
-    partial class IParkTDBModelSnapshot : ModelSnapshot
+    [Migration("20200714174501_Removed reservation date")]
+    partial class Removedreservationdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,8 +44,8 @@ namespace IParkT_Authentication.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
-                    b.Property<string>("username")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("username")
+                        .HasColumnType("int");
 
                     b.HasKey("LicensePlate");
 
@@ -80,6 +82,9 @@ namespace IParkT_Authentication.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CarLicensePlate")
                         .HasColumnType("nvarchar(450)");
 
@@ -88,9 +93,6 @@ namespace IParkT_Authentication.Migrations
 
                     b.Property<DateTime>("CheckOut")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("LicensePlate")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ParkId")
                         .HasColumnType("int");

@@ -4,14 +4,16 @@ using IParkT_Authentication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IParkT_Authentication.Migrations
 {
     [DbContext(typeof(IParkTDB))]
-    partial class IParkTDBModelSnapshot : ModelSnapshot
+    [Migration("20200714195207_rename carId to LicensePlate")]
+    partial class renamecarIdtoLicensePlate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,8 +91,8 @@ namespace IParkT_Authentication.Migrations
                     b.Property<DateTime>("CheckOut")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LicensePlate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LicensePlate")
+                        .HasColumnType("int");
 
                     b.Property<int>("ParkId")
                         .HasColumnType("int");
