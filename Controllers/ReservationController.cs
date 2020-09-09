@@ -6,6 +6,7 @@ using IParkT_Authentication.Data;
 using IParkT_Authentication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace IParkT_Authentication.Controllers
 {
@@ -25,6 +26,9 @@ namespace IParkT_Authentication.Controllers
 
         public IActionResult Create()
         {
+            var user_cars = db.Car.Where(m => m.username == User.Identity.Name);
+
+            ViewBag.User_cars = user_cars;
             return View();
         }
 
@@ -38,12 +42,15 @@ namespace IParkT_Authentication.Controllers
             return View();
         }
 
+        public async Task<IActionResult> List()
+        {
+            return View(await db.Reservation.ToListAsync());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Reservation res)
         {
-            // public IActionResult Index(string visor, string bt, string primeiroOperando, string operador, string limpaVisor) {  -> na 'Calculadora'
-
             if (ModelState.IsValid)
             {
                 db.Add(res);
@@ -54,6 +61,24 @@ namespace IParkT_Authentication.Controllers
             // alguma coisa correu mal.
             // devolve-se o controlo da aplicação à View
             return View(res);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string plate)
+        {
+            if(plate == null)
+                return RedirectToAction("List");
+
+            var res = await db.Reservation.FirstOrDefaultAsync(m => m.LicensePlate == plate);
+            if (res == null)
+                return RedirectToAction("List");
+
+            var resplate = await db.Reservation.FindAsync(res.ReservationId);
+            db.Reservation.Remove(resplate);
+
+            await db.SaveChangesAsync();
+            return RedirectToAction("List");
         }
     }
 }

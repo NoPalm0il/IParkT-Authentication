@@ -5,13 +5,7 @@
 }
 
 <h1>List</h1>
-@if (Model == null)
-{
-    <br />
-    <h1>You have no reservations</h1>
-}
-else
-{
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -37,8 +31,7 @@ else
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
-{
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ReservationId)
@@ -64,4 +57,3 @@ else
 }
     </tbody>
 </table>
-}

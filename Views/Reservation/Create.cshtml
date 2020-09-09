@@ -1,5 +1,4 @@
 ﻿@model IParkT_Authentication.Models.Reservation
-
 @{
     ViewData["Title"] = "Create";
 }
@@ -18,11 +17,6 @@
                 <span asp-validation-for="ReservationId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="CheckIn" class="control-label"></label>
                 <input asp-for="CheckIn" class="form-control" />
                 <span asp-validation-for="CheckIn" class="text-danger"></span>
@@ -33,9 +27,15 @@
                 <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CarId" class="control-label"></label>
-                <input asp-for="CarId" class="form-control" />
-                <span asp-validation-for="CarId" class="text-danger"></span>
+                <label asp-for="LicensePlate" class="control-label"></label>
+                <!--<input asp-for="LicensePlate" class="form-control" />-->
+                <asp:DropDownList asp-for="LicensePlate" class="form-control">
+                    @foreach (var car in ViewBag.User_cars)
+                    {
+                    <asp:ListItem Value=@car.LicensePlate> @car.LicensePlate </asp:ListItem>
+                    }
+                </asp:DropDownList>
+                <span asp-validation-for="LicensePlate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ParkId" class="control-label"></label>

@@ -39,6 +39,9 @@ namespace IParkT_Authentication
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            //TODO: Update-database on NuGet, and work on this
+            services.AddDbContext<IParkTDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
