@@ -55,7 +55,7 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "Name")]
+            [Display(Name = "Username")]
             public string Name { get; set; }
 
             [Required]
@@ -108,6 +108,16 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                int checkYearInt;
+                try
+                {
+                    checkYearInt = Int32.Parse(Input.Year);
+                }
+                catch (Exception)
+                {
+                    return Page();
+                    
+                }
                 var newutilizador = new Utilizador
                 {
                     username = Input.Name,

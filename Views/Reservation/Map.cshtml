@@ -10,10 +10,20 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-8"><img src="\assets\mapa_estancionamento_numerado.png" class="img-fluid" alt="Mapa do estancionamento"></div>
+        <div class="col-6"><img src="\assets\mapa_estancionamento_numerado.png" class="img-fluid" alt="Mapa do estancionamento"></div>
         
         
-        <div class="col-4">colocar lista de lugares disponiveis e colocar opção de ir para a pagina de reservas ou fazer a reserva inserindo o lugar</div>
+        <div class="col-6">
+            <h1>numeros dos lugares disponiveis</h1>
+            <table class="table">
+                <tbody>
+                   colocar array com subconsulta de lugares ocupados, subconsulta feita atravez de horas final de reserva e hora atual
+                </tbody>
+            </table>
+            <p>
+                <a asp-action="Create">Make a new Reservation</a>
+            </p>
+        </div>
 
        
 
