@@ -17,20 +17,29 @@ namespace IParkT_Authentication.Data
         /// <param name="options"></param>
         public IParkTDB(DbContextOptions<IParkTDB> options) : base(options) { }
 
-        //public override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //    modelBuilder.Entity<Park>().HasData(
-        //        new Park { ParkId = 0, ParkSpot = 0x00, ParkSpotType = "Guard", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" }
-        //        );
-        //}
+            modelBuilder.Entity<Park>().HasData(
+                new Park { ParkId = 3, ParkSpotType = "Teacher", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 4, ParkSpotType = "Teacher", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 5, ParkSpotType = "Aux", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 6, ParkSpotType = "Aux", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 7, ParkSpotType = "Student", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 8, ParkSpotType = "Student", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 9, ParkSpotType = "Student", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 10, ParkSpotType = "Student", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 11, ParkSpotType = "Student", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" },
+                new Park { ParkId = 12, ParkSpotType = "Principal", GpsCoords = "39°36\'01.8\"N 8°23\'29.3\"W" }
+                );
+        }
 
-        // adicionar as 'tabelas' à BD
+        // add db tables
         public virtual DbSet<Utilizador> User { get; set; }
         public virtual DbSet<Car> Car { get; set; }
-        public virtual DbSet<Park> Park { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
+        public virtual DbSet<Park> Park { get; set; }
     }
 
 }

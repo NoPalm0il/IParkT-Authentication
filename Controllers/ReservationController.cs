@@ -7,6 +7,7 @@ using IParkT_Authentication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace IParkT_Authentication.Controllers
 {
@@ -44,7 +45,11 @@ namespace IParkT_Authentication.Controllers
 
         public async Task<IActionResult> List()
         {
-            return View(await db.Reservation.ToListAsync());
+            var reslist = await db.Reservation
+                .Where(r => r.car.username == User.Identity.Name)
+                .ToListAsync();
+            return View(reslist);
+            //return View(await db.Reservation.ToListAsync());
         }
 
         [HttpPost]
@@ -53,8 +58,20 @@ namespace IParkT_Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Add(res);
+                //var alltres = await db.Reservation.ToListAsync();
+
+                //if (alltres.Count == 0)
+                //    res.ReservationId = 1;
+                //else
+                //    res.ReservationId = alltres.Last().ReservationId + 1;
+
+                Car car = await db.Car.FirstAsync(c => c.username == User.Identity.Name && c.LicensePlate == res.LicensePlate);
+
+                res.car = car;
+
+                var createres = db.Add(res);
                 await db.SaveChangesAsync(); // commit
+
                 return RedirectToAction(nameof(Index));
             }
 

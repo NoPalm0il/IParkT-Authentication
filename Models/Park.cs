@@ -15,8 +15,10 @@ namespace IParkT_Authentication.Models
 
         [Key]
         public int ParkId { get; set; }
-        public int ParkSpot { get; set; }
+
+        [Required]
         public string ParkSpotType { get; set; }
+        [Required]
         public string GpsCoords { get; set; }
 
         public virtual ICollection<Reservation> Reservations { get; set; }

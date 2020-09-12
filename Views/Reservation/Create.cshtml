@@ -12,11 +12,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ReservationId" class="control-label"></label>
-                <input asp-for="ReservationId" class="form-control" />
-                <span asp-validation-for="ReservationId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="CheckIn" class="control-label"></label>
                 <input asp-for="CheckIn" class="form-control" />
                 <span asp-validation-for="CheckIn" class="text-danger"></span>
@@ -29,12 +24,12 @@
             <div class="form-group">
                 <label asp-for="LicensePlate" class="control-label"></label>
                 <!--<input asp-for="LicensePlate" class="form-control" />-->
-                <asp:DropDownList asp-for="LicensePlate" class="form-control">
+                <select asp-for="LicensePlate" class="form-control">
                     @foreach (var car in ViewBag.User_cars)
                     {
-                    <asp:ListItem Value=@car.LicensePlate> @car.LicensePlate </asp:ListItem>
+                    <option Value=@car.LicensePlate >@car.LicensePlate</option>
                     }
-                </asp:DropDownList>
+                </select>
                 <span asp-validation-for="LicensePlate" class="text-danger"></span>
             </div>
             <div class="form-group">

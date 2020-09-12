@@ -8,6 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200912154958_removed parkspot.cs" />
+    <Compile Remove="Migrations\20200912154958_removed parkspot.Designer.cs" />
+    <Compile Remove="Migrations\20200912161955_removed data on creation.cs" />
+    <Compile Remove="Migrations\20200912161955_removed data on creation.Designer.cs" />
+    <Compile Remove="Migrations\20200912163808_reservation park can be null.cs" />
+    <Compile Remove="Migrations\20200912163808_reservation park can be null.Designer.cs" />
+    <Compile Remove="Migrations\20200912165606_added required.cs" />
+    <Compile Remove="Migrations\20200912165606_added required.Designer.cs" />
+    <Compile Remove="Migrations\20200912165946_fixing stuff added data.cs" />
+    <Compile Remove="Migrations\20200912165946_fixing stuff added data.Designer.cs" />
+    <Compile Remove="Migrations\20200912173818_removed startup connection.cs" />
+    <Compile Remove="Migrations\20200912173818_removed startup connection.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7" />

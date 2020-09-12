@@ -131,6 +131,7 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
                     Manufacturer = Input.Manufacturer,
                     Model = Input.Model,
                     Year = Int32.Parse(Input.Year),
+                    utilizador = newutilizador,
                     username = Input.Name
                 };
 

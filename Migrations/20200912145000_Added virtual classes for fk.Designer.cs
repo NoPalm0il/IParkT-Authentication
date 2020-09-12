@@ -4,14 +4,16 @@ using IParkT_Authentication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IParkT_Authentication.Migrations
 {
     [DbContext(typeof(IParkTDB))]
-    partial class IParkTDBModelSnapshot : ModelSnapshot
+    [Migration("20200912145000_Added virtual classes for fk")]
+    partial class Addedvirtualclassesforfk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,78 +62,17 @@ namespace IParkT_Authentication.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("GpsCoords")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ParkSpot")
+                        .HasColumnType("int");
+
                     b.Property<string>("ParkSpotType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ParkId");
 
                     b.ToTable("Park");
-
-                    b.HasData(
-                        new
-                        {
-                            ParkId = 3,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Teacher"
-                        },
-                        new
-                        {
-                            ParkId = 4,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Teacher"
-                        },
-                        new
-                        {
-                            ParkId = 5,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Aux"
-                        },
-                        new
-                        {
-                            ParkId = 6,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Aux"
-                        },
-                        new
-                        {
-                            ParkId = 7,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Student"
-                        },
-                        new
-                        {
-                            ParkId = 8,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Student"
-                        },
-                        new
-                        {
-                            ParkId = 9,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Student"
-                        },
-                        new
-                        {
-                            ParkId = 10,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Student"
-                        },
-                        new
-                        {
-                            ParkId = 11,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Student"
-                        },
-                        new
-                        {
-                            ParkId = 12,
-                            GpsCoords = "39°36'01.8\"N 8°23'29.3\"W",
-                            ParkSpotType = "Principal"
-                        });
                 });
 
             modelBuilder.Entity("IParkT_Authentication.Models.Reservation", b =>

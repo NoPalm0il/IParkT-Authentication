@@ -4,14 +4,16 @@ using IParkT_Authentication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IParkT_Authentication.Migrations
 {
     [DbContext(typeof(IParkTDB))]
-    partial class IParkTDBModelSnapshot : ModelSnapshot
+    [Migration("20200912173018_added data")]
+    partial class addeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
