@@ -20,8 +20,32 @@ namespace IParkT_Authentication.Controllers
             db = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
+            var localdate = DateTime.Now;
+
+            
+            var reservationList = await db.Reservation.ToListAsync();
+
+            foreach (var item in reservationList)
+            {
+               if (item.CheckOut < localdate)
+                {
+                    ViewBag.Free_parks = reservationList;
+                }
+            }
+
+            //var checkoutTimes = await db.Reservation.ToListAsync();
+
+            
+                //foreach (var item in parkList)
+                //{
+                //    if (localdate > parkList.
+                //}
+
+
+             ViewBag.Free_parks = reservationList;
+            //ViewBag.Free_Checkout = parkList;
             return View();
         }
 
@@ -30,6 +54,10 @@ namespace IParkT_Authentication.Controllers
             var user_cars = db.Car.Where(m => m.username == User.Identity.Name);
 
             ViewBag.User_cars = user_cars;
+
+            //var localdate = DateTime.Now;
+            //ViewBag.actual_CheckIn = localdate;
+
             return View();
         }
 
@@ -56,6 +84,7 @@ namespace IParkT_Authentication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Reservation res)
         {
+
             if (ModelState.IsValid)
             {
                 //var alltres = await db.Reservation.ToListAsync();
@@ -72,7 +101,8 @@ namespace IParkT_Authentication.Controllers
                 var createres = db.Add(res);
                 await db.SaveChangesAsync(); // commit
 
-                return RedirectToAction(nameof(Index));
+                
+                return RedirectToAction(nameof(IndexAsync));
             }
 
             // alguma coisa correu mal.

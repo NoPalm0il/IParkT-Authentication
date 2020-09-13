@@ -1,22 +1,73 @@
-﻿@model IParkT_Authentication.Models.Reservation
+﻿@model IParkT_Authentication.Models.Park
 
 @{
     ViewData["Title"] = "Operations Menu";
 }
 
-<h1 style="text-align: center">Operations Menu</h1>
+<h1 style="text-align: center">Menu & Maps</h1>
 <br />
 <br />
 
 <div class="row">
-    <div class="col-4"><h3>Parking spot listing</h3><img src="\assets\mapa_estancionamento_numerado.png" class="img-fluid" alt="Mapa do estancionamento"></div>
-    <div class="col-4"><h3>Occupied parking spots</h3></div>
     <div class="col-4">
-        <h3>Choose your operation</h3>
-        <a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Create">Make a new reservation</a>
-        <a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Edit">Edit existing reservation</a>
-        <a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Delete">Delete existing reservation</a>
-        <a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="List">List of my reservations</a>
+        <h2>Parking spot listing</h2>
+        <br />
+        <img src="\assets\mapa_estancionamento_numerado.png" class="img-fluid" alt="Mapa do estancionamento">
+    </div>
+    <div class="col-4">
+        <h2>Free parking spots</h2>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    @*<th>
+            @Html.DisplayNameFor(model => model.ReservationId)
+        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.ParkId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ParkSpotType)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Park item in ViewBag.Free_parks)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ReservationId)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParkId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParkSpotType)
+                        </td>
+
+
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })*@
+                            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-4">
+        <h2>Choose your operation</h2>
+        <br />
+        <h4>
+            <a class="display-5 nav-link text" asp-controller="Reservation" asp-action="Create">Make a new reservation</a>
+            @*<a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Edit">Edit existing reservation</a>
+        <a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Delete">Delete existing reservation</a>*@
+            <a class="display-5 nav-link text" asp-controller="Reservation" asp-action="List">List of my reservations</a>
+        </h4>
     </div>
 
 </div>
