@@ -22,30 +22,20 @@ namespace IParkT_Authentication.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var localdate = DateTime.Now;
+            var ongoingRes = await db.Reservation
+                .Include(r => r.park)
+                .Where(r => DateTime.Compare(r.CheckOut, DateTime.Now) > 0 && DateTime.Compare(r.CheckIn, DateTime.Now) < 0)
+                .ToListAsync();
 
-            //var reservationList = await db.Park.ToListAsync();
-            var reservationList = await db.Reservation.ToListAsync();
+            var parkList = await db.Park.ToListAsync();
 
-            foreach (var item in reservationList)
+            foreach (var item in ongoingRes)
             {
-                if (DateTime.Compare(item.CheckOut, DateTime.Now) > 0)
-                {
-                    ViewBag.Free_parks = reservationList;
-                }
+                parkList.Remove(item.park);
             }
 
-            //var checkoutTimes = await db.Reservation.ToListAsync();
+            ViewBag.FreeParks = parkList;
 
-
-            //foreach (var item in parkList)
-            //{
-            //    if (localdate > parkList.
-            //}
-
-
-            //ViewBag.Free_parks = reservationList;
-            //ViewBag.Free_Checkout = parkList;
             return View();
         }
 
@@ -54,9 +44,6 @@ namespace IParkT_Authentication.Controllers
             var user_cars = db.Car.Where(m => m.username == User.Identity.Name);
 
             ViewBag.User_cars = user_cars;
-
-            //var localdate = DateTime.Now;
-            //ViewBag.actual_CheckIn = localdate;
 
             return View();
         }
@@ -85,30 +72,45 @@ namespace IParkT_Authentication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Reservation res)
         {
-
             if (ModelState.IsValid)
             {
-                //var alltres = await db.Reservation.ToListAsync();
+                if (DateTime.Compare(res.CheckIn, res.CheckOut) > 0)
+                    return RedirectToAction("Create");
 
-                //if (alltres.Count == 0)
-                //    res.ReservationId = 1;
-                //else
-                //    res.ReservationId = alltres.Last().ReservationId + 1;
 
-                Car car = await db.Car.FirstAsync(c => c.username == User.Identity.Name && c.LicensePlate == res.LicensePlate);
+                //returns a list if checkout date > checkin date on the same parkId
+                var ongoingRes = await db.Reservation
+                .Include(r => r.park)
+                .Where(r => DateTime.Compare(r.CheckOut, res.CheckIn) > 0 && r.ParkId == res.ParkId)
+                .ToListAsync();
+
+                if(ongoingRes.Count() > 0)
+                    return RedirectToAction("Create");
+
+                //checks if car has allready a reserve on that time
+                var isCarUsed = await db.Reservation
+                    .Include(r => r.car)
+                    .Where(r => DateTime.Compare(r.CheckOut, res.CheckIn) > 0 && r.car.username == User.Identity.Name)
+                    .ToListAsync();
+
+                if(isCarUsed.Count() > 0)
+                    return RedirectToAction("Create");
+
+                Car car = await db.Car.FirstAsync(c => c.LicensePlate == res.LicensePlate);
+                Park park = await db.Park.FirstAsync(p => p.ParkId == res.ParkId);
 
                 res.car = car;
+                res.park = park;
 
-                var createres = db.Add(res);
+                var createReservation = db.Add(res);
                 await db.SaveChangesAsync(); // commit
-
                 
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction("Index");
             }
 
             // alguma coisa correu mal.
             // devolve-se o controlo da aplicação à View
-            return View(res);
+            return RedirectToAction("Create");
         }
 
         [HttpPost, ActionName("Delete")]
