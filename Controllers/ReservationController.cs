@@ -24,12 +24,12 @@ namespace IParkT_Authentication.Controllers
         {
             var localdate = DateTime.Now;
 
-            
+            //var reservationList = await db.Park.ToListAsync();
             var reservationList = await db.Reservation.ToListAsync();
 
             foreach (var item in reservationList)
             {
-               if (item.CheckOut < localdate)
+                if (DateTime.Compare(item.CheckOut, DateTime.Now) > 0)
                 {
                     ViewBag.Free_parks = reservationList;
                 }
@@ -37,14 +37,14 @@ namespace IParkT_Authentication.Controllers
 
             //var checkoutTimes = await db.Reservation.ToListAsync();
 
-            
-                //foreach (var item in parkList)
-                //{
-                //    if (localdate > parkList.
-                //}
+
+            //foreach (var item in parkList)
+            //{
+            //    if (localdate > parkList.
+            //}
 
 
-             ViewBag.Free_parks = reservationList;
+            //ViewBag.Free_parks = reservationList;
             //ViewBag.Free_Checkout = parkList;
             return View();
         }
@@ -74,8 +74,9 @@ namespace IParkT_Authentication.Controllers
         public async Task<IActionResult> List()
         {
             var reslist = await db.Reservation
-                .Where(r => r.car.username == User.Identity.Name)
+                .Where(r => r.car.username == User.Identity.Name && DateTime.Compare(r.CheckOut, DateTime.Now) > 0)
                 .ToListAsync();
+
             return View(reslist);
             //return View(await db.Reservation.ToListAsync());
         }
