@@ -20,16 +20,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    @*<th>
-            @Html.DisplayNameFor(model => model.ReservationId)
-        </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.ParkId)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ParkSpotType)
                     </th>
-
                     <th></th>
                 </tr>
             </thead>
@@ -37,9 +33,6 @@
                 @foreach (Park item in ViewBag.FreeParks)
                 {
                     <tr>
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.ReservationId)
-                            </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.ParkId)
                         </td>
@@ -47,12 +40,6 @@
                             @Html.DisplayFor(modelItem => item.ParkSpotType)
                         </td>
 
-
-                        <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })*@
-                            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                        </td>
                     </tr>
                 }
             </tbody>
@@ -65,7 +52,7 @@
         <h4>
             <a class="display-5 nav-link text" asp-controller="Reservation" asp-action="Create">Make a new reservation</a>
             @*<a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Edit">Edit existing reservation</a>
-        <a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Delete">Delete existing reservation</a>*@
+                <a class="display-5 nav-link text-dark" asp-controller="Reservation" asp-action="Delete">Delete existing reservation</a>*@
             <a class="display-5 nav-link text" asp-controller="Reservation" asp-action="List">List of my reservations</a>
         </h4>
     </div>

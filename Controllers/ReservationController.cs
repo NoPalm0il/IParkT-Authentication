@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IParkT_Authentication.Controllers
 {
@@ -45,16 +46,6 @@ namespace IParkT_Authentication.Controllers
 
             ViewBag.User_cars = user_cars;
 
-            return View();
-        }
-
-        public IActionResult Edit()
-        {
-            return View();
-        }
-
-        public IActionResult Delete()
-        {
             return View();
         }
 
@@ -113,22 +104,29 @@ namespace IParkT_Authentication.Controllers
             return RedirectToAction("Create");
         }
 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            Reservation reservation = await db.Reservation.FirstAsync(r => r.ReservationId == id);
+
+            if(reservation == null)
+                return NotFound();
+
+            return View(reservation);
+        }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(string plate)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if(plate == null)
-                return RedirectToAction("List");
+            Reservation reservation = await db.Reservation.FirstAsync(r => r.ReservationId == id);
 
-            var res = await db.Reservation.FirstOrDefaultAsync(m => m.LicensePlate == plate);
-            if (res == null)
-                return RedirectToAction("List");
-
-            var resplate = await db.Reservation.FindAsync(res.ReservationId);
-            db.Reservation.Remove(resplate);
-
+            db.Reservation.Remove(reservation);
             await db.SaveChangesAsync();
-            return RedirectToAction("List");
+
+            return RedirectToAction("Index");
         }
     }
 }
