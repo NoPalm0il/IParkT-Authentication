@@ -3,14 +3,22 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Make your Parking Reservation</h1>
+<br />
+<br />
 
-<h4>Reservation</h4>
-<hr />
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-6">
+        <h4>Enter your details below</h4>
+        <hr />
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ParkId" class="control-label"></label>
+                <input asp-for="ParkId" class="form-control" />
+                <span asp-validation-for="ParkId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="CheckIn" class="control-label"></label>
                 <input asp-for="CheckIn" class="form-control" />
@@ -27,20 +35,25 @@
                 <select asp-for="LicensePlate" class="form-control">
                     @foreach (var car in ViewBag.User_cars)
                     {
-                    <option Value=@car.LicensePlate >@car.LicensePlate</option>
+                        <option Value=@car.LicensePlate>@car.LicensePlate</option>
                     }
                 </select>
                 <span asp-validation-for="LicensePlate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="ParkId" class="control-label"></label>
-                <input asp-for="ParkId" class="form-control" />
-                <span asp-validation-for="ParkId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save my spot!" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+    <div class="col-6">
+        <h4>To ensure your spot reservation is submitted correctly, please make sure to follow the steps below.</h4>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-success">ParkID refers to the parking spot number, make sure you checked the map and the free spot list and choose your spot accordingly.</li>
+            <li class="list-group-item list-group-item-success">If you intend to check in right now on your chosen spot, make sure to use the "today" button on the date selector.</li>
+            <li class="list-group-item list-group-item-success">Your license plate will be filled in automaticly, make sure it is the correct one and if you happen to be using a different car, change it in your account settings (top right next to logout button)</li>
+            <li class="list-group-item list-group-item-danger">Do not enter a check out date earlier than your check in date, as this will make your reservation invalid and it will be discarded</li>
+        </ul>
     </div>
 </div>
 

@@ -58,6 +58,74 @@ html {
   min-height: 100%;
 }
 
+/* reservation index scrollable table
+-------------------------------------------------- */
+.tableFixHead {
+    overflow-y: auto;
+    height: 650px;
+}
+
+    .tableFixHead thead th {
+        position: sticky;
+        top: 0;
+    }
+    .tableFixHead table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    .tableFixHead th, td {
+    padding: 8px 16px;
+}
+    .tableFixHead th {
+    background: #eee;
+}
+
+
+/* Dark mode settings START
+-------------------------------------------------- */
+.lighttheme {
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+    .lighttheme.night-mode {
+        color: #ddc986 !important;
+    }
+
+.buttondark button {
+    padding: 15px 15px 10px 15px;
+    border: none;
+    text-align: center;
+    background: #333333;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    outline: 0;
+    cursor: pointer;
+}
+
+    .buttondark button:hover {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+
+.buttondark .button-image {
+    height: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+
+
+.buttondark button.night-mode {
+    color: #333333;
+    background-color: white;
+}
+
+/* Dark mode settings END
+-------------------------------------------------- */
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;

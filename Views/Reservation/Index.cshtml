@@ -17,34 +17,35 @@
     <div class="col-4">
         <h2>Free parking spots</h2>
         <br />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ParkId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ParkSpotType)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (Park item in ViewBag.FreeParks)
-                {
+        <div class="tableFixHead">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ParkId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ParkSpotType)
-                        </td>
-
+                        <th>
+                            @Html.DisplayNameFor(model => model.ParkId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ParkSpotType)
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (Park item in ViewBag.FreeParks)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ParkId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ParkSpotType)
+                            </td>
 
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="col-4">
         <h2>Choose your operation</h2>
