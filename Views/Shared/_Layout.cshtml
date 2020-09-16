@@ -11,17 +11,18 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body>
-    <header>
+    <header class="darkheader">
         @*<div class="lighttheme">*@
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3">
+                <div class="container darkheader">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">IParkT - Parking Manager</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse ">
                         <partial name="_LoginPartial" />
                         <ul class="navbar-nav flex-grow-1">
                             @if (SignInManager.IsSignedIn(User))
@@ -45,15 +46,19 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted lighttheme">
         <div class="container">
-            &copy; 2020 - IParkT - Parking Manager - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            @*<div class="buttondark">
-                <button class="nightModeButton ">
-                    <img class="button-image">Night Mode
-                </button>
-            </div>*@
-        </div>
+            <div class="row">
+                <div class="col-6">
+                    &copy; 2020 - IParkT - Parking Manager - <a class="linkText" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+                <div class="col-6">
+                    <div class="buttondark float-right">
+                        <button class="nightModeButton ">Night Mode</button>
+                    </div>
+                </div>
+               </div>
+            </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

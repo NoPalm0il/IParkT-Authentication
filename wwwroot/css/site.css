@@ -73,9 +73,6 @@ html {
         border-collapse: collapse;
         width: 100%;
     }
-    .tableFixHead th, td {
-    padding: 8px 16px;
-}
     .tableFixHead th {
     background: #eee;
 }
@@ -83,26 +80,19 @@ html {
 
 /* Dark mode settings START
 -------------------------------------------------- */
-.lighttheme {
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
-
-    .lighttheme.night-mode {
-        color: #ddc986 !important;
-    }
 
 .buttondark button {
-    padding: 15px 15px 10px 15px;
-    border: none;
     text-align: center;
-    background: #333333;
-    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 35px;
+    border: none;
     text-decoration: none;
-    color: white;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background: #333333;
+    color: white;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     outline: 0;
-    cursor: pointer;
 }
 
     .buttondark button:hover {
@@ -111,9 +101,7 @@ html {
 
 
 .buttondark .button-image {
-    height: 20px;
-    margin-right: 5px;
-    margin-bottom: 5px;
+    height: 5px;
     vertical-align: middle;
 }
 
@@ -123,8 +111,116 @@ html {
     background-color: white;
 }
 
+/* darkheader
+------------- */
+
+
+.darkheader {
+
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important;
+}
+
+    .darkheader a {
+        background: white !important;
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important;
+    }
+
+    .darkheader nav {
+        background: white !important;
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important;
+    }
+
+
+    .darkheader.night-mode {
+        background: #212121 !important;
+        color: white !important;
+    }
+
+        .darkheader.night-mode a {
+            background: #212121 !important;
+            color: white !important;
+        }
+
+        .darkheader.night-mode nav {
+            background: #212121 !important;
+            color: white !important;
+        }
+
+/* darkheader
+------------- */
+body {
+    transition: all 1s cubic-bezier(.25,.8,.25,1);
+}
+
+.header {
+    color: #333333;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.paragraph {
+    max-width: 90%;
+    color: #333333;
+}
+.paragraph.night-mode {
+    color: #c8c8c8;
+}
+
+.header.night-mode {
+    color: #ddc986;
+}
+
+body.night-mode {
+    background: #303030;
+    color: white;
+}
+
+    body.night-mode footer {
+
+        color: white !important;
+        border-top: 0px !important;
+        transition: all 1s cubic-bezier(.25,.8,.25,1);
+    }
+
+    body.night-mode .linkText{
+        color: #bb86fc !important;
+    }
+    body.night-mode a {
+        color: #bb86fc !important;
+    }
+
+    body.night-mode .btn-primary {
+        color: white !important;
+        background-color: #bb86fc !important;
+        border-color: #9323FC !important;
+    }
+
+    body.night-mode .nav-pills .nav-link.active {
+        color: white !important;
+        background-color: #bb86fc !important;
+        border-color: #9323FC !important;
+    }
+    body.night-mode .linkText {
+        color: #bb86fc !important;
+    }
+    body.night-mode .tableText {
+        color: white !important;
+    }
+    body.night-mode .tableFixHead th {
+        background: #212121 !important;
+    }
+    body.night-mode .darkmodehr {
+        transition: all 1s cubic-bezier(.25,.8,.25,1);
+        border-top: 1px solid white !important;
+    }
+
 /* Dark mode settings END
 -------------------------------------------------- */
+/* Logout button to red
+-------------------------------------------------- */
+.colorLogout {
+    color: red !important;
+}
+
 
 body {
   /* Margin bottom by footer height */

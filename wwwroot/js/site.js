@@ -4,9 +4,12 @@
 // Write your JavaScript code.
 
 var nightModeToggleButton = document.querySelector(".nightModeButton");
-var darktogglehead = document.querySelector(".lighttheme");
+var darkheader = document.querySelector(".darkheader");
+var header = document.querySelector(".header");
+var body = document.querySelector("body");
 
 nightModeToggleButton.onclick = function () {
     nightModeToggleButton.classList.toggle("night-mode");
-    darktogglehead.classList.toggle("night-mode");
+    darkheader.classList.toggle("night-mode");
+    body.classList.toggle("night-mode");
 };
