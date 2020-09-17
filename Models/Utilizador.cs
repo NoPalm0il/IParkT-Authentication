@@ -22,12 +22,6 @@ namespace IParkT_Authentication.Models
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
 
-        //[ForeignKey("Passwords")]
-        //[Display(Name = "Password")]
-        //[DataType(DataType.Password)]
-        //[Required(ErrorMessage = "Must have a password")]
-        //public int passwordId { get; set; }
-
         public virtual ICollection<Car> Cars { get; set; }
     }
 }

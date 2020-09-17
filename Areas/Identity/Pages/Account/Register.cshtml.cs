@@ -111,19 +111,21 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
                 int checkYearInt;
                 try
                 {
+                    // verifica se o ano está correto
                     checkYearInt = Int32.Parse(Input.Year);
                 }
                 catch (Exception)
                 {
+                    // caso nao recarrega a pagina
                     return Page();
-                    
                 }
+                // cria o objeto utilizador
                 var newutilizador = new Utilizador
                 {
                     username = Input.Name,
                     email = Input.Email
                 };
-
+                // cria o objeto carro
                 var newcar = new Car
                 {
                     LicensePlate = Input.LicensePlate,
@@ -134,10 +136,12 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
                     utilizador = newutilizador,
                     username = Input.Name
                 };
-
+                // cria o utilizador do tipo IdentityUser
                 var user = new IdentityUser { UserName = Input.Name, Email = Input.Email };
+                // é guardado no objeto resultado se o utilizador foi criado com sucesso
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 
+                // Caso seja sucedido
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -155,14 +159,14 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
 
                     try
                     {
+                        // adiciona o utilizador juntamente com o carro à bd IParkTDB
                         var result_uti = _context.Add(newutilizador);
                         var result_car = _context.Add(newcar);
+                        // guarda as alteracoes
                         await _context.SaveChangesAsync();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        Console.WriteLine(e.Message);
-
                         return Page();
                     }
 
