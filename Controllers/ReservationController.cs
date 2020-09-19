@@ -81,11 +81,15 @@ namespace IParkT_Authentication.Controllers
         [Authorize]
         public async Task<IActionResult> List()
         {
-            // realiza uma subconsulta para devolver a reserva onde o dono do carro seja o do utilizador atual
-            // e a data do checkout seja superior a data atual
-            var reslist = await db.Reservation
-                .Where(r => r.car.username == User.Identity.Name && DateTime.Compare(r.CheckOut, DateTime.Now) > 0)
-                .ToListAsync();
+            List<Reservation> reslist;
+            if(User.IsInRole("Admin"))
+                reslist = await db.Reservation.ToListAsync();
+            else
+                // realiza uma subconsulta para devolver a reserva onde o dono do carro seja o do utilizador atual
+                // e a data do checkout seja superior a data atual
+                reslist = await db.Reservation
+                    .Where(r => r.car.username == User.Identity.Name && DateTime.Compare(r.CheckOut, DateTime.Now) > 0)
+                    .ToListAsync();
 
             return View(reslist);
         }
@@ -107,6 +111,9 @@ namespace IParkT_Authentication.Controllers
                 if (DateTime.Compare(res.CheckIn, res.CheckOut) > 0)
                     return RedirectToAction("Create");
 
+                // Não se pode reservar o lugar por mais de 0.75 dias
+                if((res.CheckIn - res.CheckOut).TotalDays < -0.75)
+                    return RedirectToAction("Create");
 
                 // retorna uma lista com reservas que compara a data de checkout desse parque com a data de checkin inserida
                 var ongoingRes = await db.Reservation

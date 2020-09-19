@@ -139,8 +139,18 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
                 // cria o utilizador do tipo IdentityUser
                 var user = new IdentityUser { UserName = Input.Name, Email = Input.Email };
                 // é guardado no objeto resultado se o utilizador foi criado com sucesso
+                try
+                {
+                    var result_uti = await _context.AddAsync(newutilizador);
+                    var result_car = await _context.AddAsync(newcar);
+                    var finalresult = await _context.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    return Page();
+                }
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                
                 // Caso seja sucedido
                 if (result.Succeeded)
                 {
@@ -157,18 +167,7 @@ namespace IParkT_Authentication.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    try
-                    {
-                        // adiciona o utilizador juntamente com o carro à bd IParkTDB
-                        var result_uti = _context.Add(newutilizador);
-                        var result_car = _context.Add(newcar);
-                        // guarda as alteracoes
-                        await _context.SaveChangesAsync();
-                    }
-                    catch (Exception)
-                    {
-                        return Page();
-                    }
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

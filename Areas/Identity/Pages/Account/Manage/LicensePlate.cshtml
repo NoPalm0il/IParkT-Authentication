@@ -1,0 +1,89 @@
+﻿@page
+@model LicensePlateModel
+@{
+    ViewData["Title"] = "Manage License Plates";
+    ViewData["ActivePage"] = ManageNavPages.LicensePlate;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row">
+    <div class="col-md-10">
+        <h>Your license plates</h>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        License Plate
+                    </th>
+                    <th>
+                        Color
+                    </th>
+                    <th>
+                        Manufacturer
+                    </th>
+                    <th>
+                        Model
+                    <th>
+                        Year
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var car in Model.Cars)
+            {
+                <tr>
+                    <td>
+                        @car.LicensePlate
+                    </td>
+                    <td>
+                        @car.Color
+                    </td>
+                    <td>
+                        @car.Manufacturer
+                    </td>
+                    <td>
+                        @car.Model
+                    </td>
+                    <td>
+                        @car.Year
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-6">
+        <form id="email-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.NewLicensePlate"></label>
+                <input asp-for="Input.NewLicensePlate" class="form-control" />
+                <span asp-validation-for="Input.NewLicensePlate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.NewColor"></label>
+                <input asp-for="Input.NewColor" class="form-control" />
+                <span asp-validation-for="Input.NewColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.NewManufacturer"></label>
+                <input asp-for="Input.NewManufacturer" class="form-control" />
+                <span asp-validation-for="Input.NewManufacturer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.NewModel"></label>
+                <input asp-for="Input.NewModel" class="form-control" />
+                <span asp-validation-for="Input.NewModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.NewYear"></label>
+                <input asp-for="Input.NewYear" class="form-control" />
+                <span asp-validation-for="Input.NewYear" class="text-danger"></span>
+            </div>
+            <button id="add-car-button" type="submit" asp-page-handler="AddCar" class="btn btn-primary">Add Car</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
